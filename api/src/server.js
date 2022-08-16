@@ -12,10 +12,6 @@ app.get("/", (req, res) => {
   res.json({ message: "hello" });
 });
 
-app.get("/todos", (req, res) => {
-  res.json({ message: "getting todos" });
-});
-
 app.listen(process.env.PORT ?? 8080, () => {
   console.log(`Server is running`);
 });
