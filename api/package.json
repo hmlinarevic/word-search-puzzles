@@ -1,12 +1,14 @@
 {
-  "name": "api",
+  "name": "crosswit-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
