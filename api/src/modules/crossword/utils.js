@@ -14,6 +14,10 @@ export const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max + 1 - min) + min)
 }
 
+export const getRandomLowercaseLetter = () => {
+  return String.fromCharCode(getRandomNumber(97, 122))
+}
+
 export const selectRandomArrayElement = (ar) => {
   const index = getRandomNumber(0, ar.length - 1)
 
