@@ -1,18 +1,14 @@
-import level from './Level.js'
-import board from './Board.js'
 import { DIRECTIONS } from '../config.js'
-import { selectRandomArrayElement } from '../utils.js'
+import { selectRandomArrayElement } from '../../../utils/index.js'
 
 class Placement {
-  constructor(startSquareIndex) {
+  constructor(startSquareIndex, board) {
     this.startSquareIndex = startSquareIndex
-    this.directions = this.#getDirections()
+    this.directions = this.#getDirections(board)
     this.maxSize = this.#getMaxSize()
   }
 
-  #getDirections() {
-    const { getRowNum } = board
-
+  #getDirections(board) {
     const indexes = DIRECTIONS.reduce((obj, dir) => {
       // get increment
       const directionIncrement = board.navigation[dir]
@@ -23,22 +19,22 @@ class Placement {
       obj[dir] = []
 
       if (dir === 'N') {
-        while (getRowNum(squareIndex) >= 1) {
+        while (board.getRowNum(squareIndex) >= 1) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
       }
 
       if (dir === 'S') {
-        while (getRowNum(squareIndex) <= level.size) {
+        while (board.getRowNum(squareIndex) <= board.size) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
       }
 
       if (dir === 'W' || dir === 'E') {
-        const currentRow = getRowNum(squareIndex)
-        while (currentRow === getRowNum(squareIndex)) {
+        const currentRow = board.getRowNum(squareIndex)
+        while (currentRow === board.getRowNum(squareIndex)) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
@@ -48,12 +44,12 @@ class Placement {
         let currentRow
         let nextRow
         do {
-          currentRow = getRowNum(squareIndex)
+          currentRow = board.getRowNum(squareIndex)
 
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
 
-          nextRow = getRowNum(squareIndex)
+          nextRow = board.getRowNum(squareIndex)
         } while (Math.abs(currentRow - nextRow) === 1)
       }
 
@@ -90,7 +86,7 @@ class Placement {
     this.selectedDir = this.directions[randomDir]
   }
 
-  getCollisionsData() {
+  getCollisionsData(board) {
     const results = []
 
     this.selectedDir.forEach((squareIndex, i) => {
@@ -98,8 +94,8 @@ class Placement {
       const squareValue = board.readSquare(squareIndex)
 
       if (squareValue !== null) {
-        console.log('collision!')
-        const collision = { squareIndex, squareValue, letterIndex: i}
+        // console.log('collision!')
+        const collision = { squareIndex, squareValue, letterIndex: i }
 
         results.push(collision)
       }

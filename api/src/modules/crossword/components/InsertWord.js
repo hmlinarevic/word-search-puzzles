@@ -1,4 +1,4 @@
-import RandomWords from './RandomWords.js'
+import RandomWords from '../../randomWords/index.js'
 
 class InsertWord {
   constructor(word) {

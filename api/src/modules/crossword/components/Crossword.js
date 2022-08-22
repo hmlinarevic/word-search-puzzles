@@ -1,23 +1,37 @@
-import level from './Level.js'
-import board from './Board.js'
-import wordInserter from './WordInserter.js'
+import Board from './Board.js'
+import WordInserter from './WordInserter.js'
+import { loadLevelConfig } from '../helpers.js'
 
 class Crossword {
-  loadLevel(levelNum) {
-    level.load(levelNum)
-  }
+  constructor(levelNum) {
+    const config = loadLevelConfig(levelNum)
 
-  assembleBoard() {
-    board.assemble()
+    this.board = new Board(config)
+    this.wordInserter = new WordInserter(this.board)
+
+    this.insertWords()
+    this.fillEmptySquares()
   }
 
   insertWords() {
-    wordInserter.insertWords()
+    this.wordInserter.insertWords()
+  }
+
+  fillEmptySquares() {
+    this.board.fillEmptySquares()
+  }
+
+  getSize() {
+    return this.board.size
   }
 
   getSquares() {
-    return board.getSquares()
+    return this.board.squares
+  }
+
+  getInsertedWords() {
+    return this.wordInserter.insertedWords.data
   }
 }
 
-export default new Crossword()
+export default Crossword

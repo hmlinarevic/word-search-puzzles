@@ -1,11 +1,16 @@
-import crossword from "./components/Crossword.js";
+import Crossword from './components/Crossword.js'
 
 const createCrosswordLevel = (levelNum) => {
-  crossword.loadLevel(levelNum);
-  crossword.assembleBoard();
-  crossword.insertWords();
+  const c = new Crossword(levelNum)
 
-  return crossword.getSquares();
-};
+  return {
+    size: c.getSize(),
+    squares: c.getSquares(),
+    insertedWords: c.getInsertedWords(),
+  }
+}
 
-export default createCrosswordLevel;
+const level = createCrosswordLevel(3)
+console.log(level)
+
+export default createCrosswordLevel

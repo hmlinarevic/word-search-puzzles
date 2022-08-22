@@ -1,70 +1,65 @@
-import RandomWords from './RandomWords.js'
+import RandomWords from '../../randomWords/index.js'
 import Placement from './Placement.js'
-import board from './Board.js'
-import level from './Level.js'
 import InsertWord from './InsertWord.js'
 
 class WordInserter {
-  insertWords() {
+  constructor(board) {
+    this.board = board
+
+    this.numOfWordsToInsert = this.board.numOfWords
+    this.attemptedInserts = 0
     this.insertedWords = {
       count: 0,
-      list: []
+      data: [
+        // fill with {word: '', indexes: []}
+      ],
     }
-
-    this.attemptedInserts = 0
-
-    while (this.insertedWords.count < level.numOfWords) {
-    this.attemptedInserts ++
-      this.attemptInsert()
-    }
-
-    console.log(board.squares)
-    console.log(this.insertedWords.list)
-    console.log({attemptedInserts: this.attemptedInserts})
   }
 
-  attemptInsert() {
-    const startSquareIndex = board.getRandomSquareIndex()
-    const startSquareValue = board.read(startSquareIndex)
+  insertWords() {
+    while (this.insertedWords.count < this.numOfWordsToInsert) {
+      this.attemptedInserts++
+      this.#attemptInsert()
+    }
+  }
+
+  #attemptInsert() {
+    const startSquareIndex = this.board.getRandomSquareIndex()
+    const startSquareValue = this.board.read(startSquareIndex)
 
     if (startSquareValue === null) {
-      const placement = new Placement(startSquareIndex)
+      console.log('attempting insert...')
+      console.log({ board: this.board })
+
+      const placement = new Placement(startSquareIndex, this.board)
       const insertWord = new InsertWord(
         RandomWords.getWords(1, placement.maxSize)
       )
 
-      // testing
-      // insertWord.word = 'love' // --> 'null, null, null, 's'
-      // board.squares[36] = 'x'
-      // board.squares[20] = 's'
-
       placement.setPossibleDirs(insertWord.word)
       placement.setSelectedDir()
 
-      const collisions = placement.getCollisionsData()
+      const collisions = placement.getCollisionsData(this.board)
 
       if (collisions.length) {
-        console.log('we have collisions, people')
         insertWord.tryToModify(collisions)
       }
 
       if (collisions.length && !insertWord.modified) {
-        console.log('attempting insert...')
-        return this.attemptInsert()
+        return this.#attemptInsert()
       }
 
       const wordToInsert = insertWord.modified || insertWord.word
 
-      board.place(wordToInsert, placement.selectedDir)
+      this.board.place(wordToInsert, placement.selectedDir)
 
       this.insertedWords.count++
-      this.insertedWords.list.push(wordToInsert)
-
-      // console.log(placement)
-      // console.log(insertWord)
-      // console.log({ collisions })
+      this.insertedWords.data.push({
+        word: wordToInsert,
+        indexes: placement.selectedDir,
+      })
     }
   }
 }
 
-export default new WordInserter()
+export default WordInserter
