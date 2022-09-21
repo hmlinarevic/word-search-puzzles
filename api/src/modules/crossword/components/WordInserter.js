@@ -5,15 +5,8 @@ import InsertWord from './InsertWord.js'
 class WordInserter {
   constructor(board, numOfWordsToInsert) {
     this.board = board
+    this.numOfWordsToInsert = numOfWordsToInsert
 
-    // TESTING //
-
-    // this.numOfWordsToInsert = numOfWordsToInsert
-    this.numOfWordsToInsert = 1
-
-    // TESTING //
-
-    this.attemptedInserts = 0
     this.insertedWords = {
       count: 0,
       data: [],
@@ -22,13 +15,9 @@ class WordInserter {
 
   insertWords() {
     while (this.insertedWords.count < this.numOfWordsToInsert) {
-      this.attemptedInserts++
       this.#attemptInsert()
     }
   }
-
-  // testing
-  insertCustomData(data) {}
 
   #attemptInsert() {
     const startSquareIndex = this.board.getRandomSquareIndex()
@@ -42,7 +31,7 @@ class WordInserter {
 
       placement.setRandomDirection(insertWord.word)
 
-      const collisions = placement.getCollisionsData(this.board)
+      const collisions = placement.getCollisionsData()
 
       if (collisions.length) {
         insertWord.tryToModify(collisions)
@@ -55,18 +44,17 @@ class WordInserter {
       const wordToInsert = insertWord.modified || insertWord.word
 
       this.board.place(wordToInsert, placement.randomDir)
-      this.insertedWords.count++
 
-      // set inserted data (edit select dir length)
-      const placedIndexes = [...placement.randomDir].splice(
-        0,
-        wordToInsert.length
-      )
-      this.insertedWords.data.push({
+      this.addToInsertedList({
         word: wordToInsert,
-        indexes: placedIndexes,
+        indexes: placement.randomDir,
       })
     }
+  }
+
+  addToInsertedList(data) {
+    this.insertedWords.count++
+    this.insertedWords.data.push(data)
   }
 }
 

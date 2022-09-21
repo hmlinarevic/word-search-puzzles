@@ -4,15 +4,16 @@ import { selectRandomArrayElement } from '../../../utils/index.js'
 class Placement {
   constructor(startSquareIndex, board) {
     this.startSquareIndex = startSquareIndex
+    this.board = board
 
-    this.directions = this.#getDirections(board)
+    this.directions = this.#getDirections()
     this.maxSize = this.#getMaxSize()
   }
 
-  #getDirections(board) {
+  #getDirections() {
     const indexes = DIRECTIONS.reduce((obj, dir) => {
       // get increment
-      const directionIncrement = board.navigation[dir]
+      const directionIncrement = this.board.navigation[dir]
       // set variable
       let squareIndex = this.startSquareIndex
 
@@ -20,22 +21,22 @@ class Placement {
       obj[dir] = []
 
       if (dir === 'N') {
-        while (board.getRowNum(squareIndex) >= 1) {
+        while (this.board.getRowNum(squareIndex) >= 1) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
       }
 
       if (dir === 'S') {
-        while (board.getRowNum(squareIndex) <= board.size) {
+        while (this.board.getRowNum(squareIndex) <= this.board.size) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
       }
 
       if (dir === 'W' || dir === 'E') {
-        const currentRow = board.getRowNum(squareIndex)
-        while (currentRow === board.getRowNum(squareIndex)) {
+        const currentRow = this.board.getRowNum(squareIndex)
+        while (currentRow === this.board.getRowNum(squareIndex)) {
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
         }
@@ -45,12 +46,12 @@ class Placement {
         let currentRow
         let nextRow
         do {
-          currentRow = board.getRowNum(squareIndex)
+          currentRow = this.board.getRowNum(squareIndex)
 
           obj[dir].push(squareIndex)
           squareIndex += directionIncrement
 
-          nextRow = board.getRowNum(squareIndex)
+          nextRow = this.board.getRowNum(squareIndex)
         } while (Math.abs(currentRow - nextRow) === 1)
       }
 
@@ -62,7 +63,6 @@ class Placement {
 
   setRandomDirection(insertWord) {
     const possibleDirs = this.getPossibleDirections(insertWord)
-    console.log(possibleDirs)
     this.randomDir = selectRandomArrayElement(Object.values(possibleDirs))
   }
 
@@ -93,18 +93,12 @@ class Placement {
     return results
   }
 
-  // setSelectedDir() {
-  //   const randomDir = selectRandomArrayElement(this.possibleDirs)
-
-  //   this.selectedDir = this.directions[randomDir]
-  // }
-
-  getCollisionsData(board) {
+  getCollisionsData() {
     const results = []
 
     this.randomDir.forEach((squareIndex, i) => {
       // var i is actuall letter index of the word we are trying to insert
-      const squareValue = board.readSquare(squareIndex)
+      const squareValue = this.board.readSquare(squareIndex)
 
       if (squareValue !== null) {
         // console.log('collision!')
