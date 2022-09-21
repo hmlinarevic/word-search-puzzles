@@ -6,11 +6,13 @@ class Crossword {
   constructor(levelNum) {
     const config = loadLevelConfig(levelNum)
 
+    // instantiate components
     this.board = new Board(config)
-    this.wordInserter = new WordInserter(this.board)
+    this.wordInserter = new WordInserter(this.board, config.numOfWords)
 
+    // run methods
     this.insertWords()
-    this.fillEmptySquares()
+    // this.fillEmptySquares()
   }
 
   insertWords() {

@@ -3,16 +3,20 @@ import Placement from './Placement.js'
 import InsertWord from './InsertWord.js'
 
 class WordInserter {
-  constructor(board) {
+  constructor(board, numOfWordsToInsert) {
     this.board = board
 
-    this.numOfWordsToInsert = this.board.numOfWords
+    // TESTING //
+
+    // this.numOfWordsToInsert = numOfWordsToInsert
+    this.numOfWordsToInsert = 1
+
+    // TESTING //
+
     this.attemptedInserts = 0
     this.insertedWords = {
       count: 0,
-      data: [
-        // fill with {word: '', indexes: []}
-      ],
+      data: [],
     }
   }
 
@@ -23,21 +27,20 @@ class WordInserter {
     }
   }
 
+  // testing
+  insertCustomData(data) {}
+
   #attemptInsert() {
     const startSquareIndex = this.board.getRandomSquareIndex()
     const startSquareValue = this.board.read(startSquareIndex)
 
     if (startSquareValue === null) {
-      console.log('attempting insert...')
-      console.log({ board: this.board })
-
       const placement = new Placement(startSquareIndex, this.board)
       const insertWord = new InsertWord(
         RandomWords.getWords(1, placement.maxSize)
       )
 
-      placement.setPossibleDirs(insertWord.word)
-      placement.setSelectedDir()
+      placement.setRandomDirection(insertWord.word)
 
       const collisions = placement.getCollisionsData(this.board)
 
@@ -51,12 +54,17 @@ class WordInserter {
 
       const wordToInsert = insertWord.modified || insertWord.word
 
-      this.board.place(wordToInsert, placement.selectedDir)
-
+      this.board.place(wordToInsert, placement.randomDir)
       this.insertedWords.count++
+
+      // set inserted data (edit select dir length)
+      const placedIndexes = [...placement.randomDir].splice(
+        0,
+        wordToInsert.length
+      )
       this.insertedWords.data.push({
         word: wordToInsert,
-        indexes: placement.selectedDir,
+        indexes: placedIndexes,
       })
     }
   }

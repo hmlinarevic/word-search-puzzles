@@ -4,6 +4,7 @@ import { selectRandomArrayElement } from '../../../utils/index.js'
 class Placement {
   constructor(startSquareIndex, board) {
     this.startSquareIndex = startSquareIndex
+
     this.directions = this.#getDirections(board)
     this.maxSize = this.#getMaxSize()
   }
@@ -59,6 +60,12 @@ class Placement {
     return indexes
   }
 
+  setRandomDirection(insertWord) {
+    const possibleDirs = this.getPossibleDirections(insertWord)
+    console.log(possibleDirs)
+    this.randomDir = selectRandomArrayElement(Object.values(possibleDirs))
+  }
+
   #getMaxSize() {
     let max = 0
 
@@ -70,26 +77,32 @@ class Placement {
     return max
   }
 
-  setPossibleDirs(word) {
-    const results = []
+  /**
+   * Based on the insertWord length set possible directions (direction indexes will be the same length as the insertWord)
+   * @param {string} insertWord - word to be inserted into board
+   */
+  getPossibleDirections(insertWord) {
+    const results = {}
 
     for (const [dir, indexes] of Object.entries(this.directions)) {
-      word.length <= indexes.length && results.push(dir)
+      if (insertWord.length <= indexes.length) {
+        results[dir] = indexes.slice(0, insertWord.length)
+      }
     }
 
-    this.possibleDirs = results
+    return results
   }
 
-  setSelectedDir() {
-    const randomDir = selectRandomArrayElement(this.possibleDirs)
+  // setSelectedDir() {
+  //   const randomDir = selectRandomArrayElement(this.possibleDirs)
 
-    this.selectedDir = this.directions[randomDir]
-  }
+  //   this.selectedDir = this.directions[randomDir]
+  // }
 
   getCollisionsData(board) {
     const results = []
 
-    this.selectedDir.forEach((squareIndex, i) => {
+    this.randomDir.forEach((squareIndex, i) => {
       // var i is actuall letter index of the word we are trying to insert
       const squareValue = board.readSquare(squareIndex)
 
