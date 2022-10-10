@@ -45,14 +45,14 @@ class WordInserter {
 
       this.board.place(wordToInsert, placement.randomDir)
 
-      this.addToInsertedList({
+      this.#addToInsertedList({
         word: wordToInsert,
         indexes: placement.randomDir,
       })
     }
   }
 
-  addToInsertedList(data) {
+  #addToInsertedList(data) {
     this.insertedWords.count++
     this.insertedWords.data.push(data)
   }
