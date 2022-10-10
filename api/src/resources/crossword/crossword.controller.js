@@ -1,14 +1,24 @@
 import createCrosswordLevel from '../../modules/crossword/index.js'
-import { TIME_PER_LEVEL } from '../../modules/crossword/config.js'
+import { TIME_ALLOCATION } from '../../modules/crossword/config.js'
 
 export const getLevel = (req, res) => {
-  const isValidReq =
-    req.params.level && req.params.level >= 0 && req.params.level <= 10
+  const { level } = req.params
+
+  const isValidReq = level && level >= 0 && level <= 10
 
   if (isValidReq) {
+    const { size, squares, insertedWords } = createCrosswordLevel(level)
+
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+
     res.send({
-      level: createCrosswordLevel(req.params.level),
-      time: TIME_PER_LEVEL[req.params.level],
+      size,
+      squares,
+      insertedWords,
+      timeAllocation: {
+        memorize: TIME_ALLOCATION[req.params.level].memorize,
+        game: TIME_ALLOCATION[req.params.level].game,
+      },
     })
   } else {
     res.send({ message: 'invalid request' })
