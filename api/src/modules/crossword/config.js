@@ -17,22 +17,22 @@ export const LEVELS = Object.freeze({
 export const TIME_ALLOCATION = Object.freeze({
   // time allocation per game phase in seconds
 
-  // prologue phase (when user memorizes words)
+  // memorize phase (when user memorizes words)
   // game phase (when user looks for words in the crossword)
 
-  1: { prologue: 3, game: 20 },
-  2: { prologue: 5, game: 50 },
-  3: { prologue: 8, game: 60 },
+  1: { memorize: 1, game: 30 },
+  2: { memorize: 4, game: 40 },
+  3: { memorize: 5, game: 50 },
 
-  4: { prologue: 12, game: 5 },
-  5: { prologue: 12, game: 100 },
-  6: { prologue: 16, game: 120 },
+  4: { memorize: 10, game: 60 },
+  5: { memorize: 15, game: 80 },
+  6: { memorize: 20, game: 100 },
 
-  7: { prologue: 18, game: 120 },
-  8: { prologue: 30, game: 140 },
-  9: { prologue: 40, game: 180 },
+  7: { memorize: 30, game: 130 },
+  8: { memorize: 40, game: 150 },
+  9: { memorize: 50, game: 170 },
 
-  10: { prologue: 60, game: 200 },
+  10: { memorize: 60, game: 200 },
 })
 
 export const DIRECTIONS = Object.freeze([
