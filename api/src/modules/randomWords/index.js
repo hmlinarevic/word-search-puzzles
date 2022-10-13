@@ -19,6 +19,7 @@ export default class RandomWords {
         return word.length <= maxWordLength
       }
     })
+
     const indexHistory = []
     const results = []
 
