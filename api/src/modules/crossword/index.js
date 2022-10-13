@@ -3,14 +3,13 @@ import Crossword from './components/Crossword.js'
 const createCrosswordLevel = (levelNum) => {
   const c = new Crossword(levelNum)
 
-  return {
+  const level = {
     size: c.getSize(),
     squares: c.getSquares(),
     insertedWords: c.getInsertedWords(),
   }
-}
 
-const level = createCrosswordLevel(3)
-console.log(level)
+  return level
+}
 
 export default createCrosswordLevel
