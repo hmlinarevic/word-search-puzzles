@@ -2,7 +2,7 @@ import Board from './Board.js'
 import WordInserter from './WordInserter.js'
 import { loadLevelConfig } from '../helpers.js'
 
-class Crossword {
+class WordSearch {
   constructor(levelNum) {
     const config = loadLevelConfig(levelNum)
 
@@ -34,4 +34,4 @@ class Crossword {
   }
 }
 
-export default Crossword
+export default WordSearch

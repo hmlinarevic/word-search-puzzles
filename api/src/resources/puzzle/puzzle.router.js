@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { getLevel } from "./crossword.controller.js";
+import { Router } from 'express'
+import { getWordSearchLevel } from './puzzle.controller.js'
 
-const router = new Router();
+const router = new Router()
 
-router.get("/:level", getLevel);
+router.get('/level/:level', getWordSearchLevel)
 
-export default router;
+export default router

@@ -1,15 +1,15 @@
-import Crossword from './components/Crossword.js'
+import WordSearch from './components/WordSearch.js'
 
-const createCrosswordLevel = (levelNum) => {
-  const c = new Crossword(levelNum)
+const createWordSearchLevel = (levelNum) => {
+  const ws = new WordSearch(levelNum)
 
   const level = {
-    size: c.getSize(),
-    squares: c.getSquares(),
-    insertedWords: c.getInsertedWords(),
+    size: ws.getSize(),
+    squares: ws.getSquares(),
+    insertedWords: ws.getInsertedWords(),
   }
 
   return level
 }
 
-export default createCrosswordLevel
+export default createWordSearchLevel

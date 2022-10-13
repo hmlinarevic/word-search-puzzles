@@ -1,13 +1,13 @@
-import createCrosswordLevel from '../../modules/crossword/index.js'
-import { TIME_ALLOCATION } from '../../modules/crossword/config.js'
+import createWordSearchLevel from '../../modules/wordSearch/index.js'
+import { TIME_ALLOCATION } from '../../modules/wordSearch/config.js'
 
-export const getLevel = (req, res) => {
+export const getWordSearchLevel = (req, res) => {
   const { level } = req.params
 
   const isValidReq = level && level >= 0 && level <= 10
 
   if (isValidReq) {
-    const { size, squares, insertedWords } = createCrosswordLevel(level)
+    const { size, squares, insertedWords } = createWordSearchLevel(level)
 
     res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
 
