@@ -8,6 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
+    "build": "babel src -d lib",
     "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
@@ -18,5 +19,10 @@
     "express": "^4.18.1",
     "mongoose": "^6.5.2",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.4"
   }
 }
