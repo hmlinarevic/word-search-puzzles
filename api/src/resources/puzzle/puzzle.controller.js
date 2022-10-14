@@ -9,7 +9,7 @@ export const getWordSearchLevel = (req, res) => {
   if (isValidReq) {
     const { size, squares, insertedWords } = createWordSearchLevel(level)
 
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Origin', 'http://localhost:5000')
 
     res.send({
       size,
