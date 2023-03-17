@@ -1,15 +1,15 @@
-import WordSearch from './components/WordSearch.js'
+import WordSearch from "./components/WordSearch.js"
 
 const createWordSearchLevel = (levelNum) => {
-  const ws = new WordSearch(levelNum)
+    const ws = new WordSearch(levelNum)
 
-  const level = {
-    size: ws.getSize(),
-    squares: ws.getSquares(),
-    insertedWords: ws.getInsertedWords(),
-  }
+    const level = {
+        size: ws.getSize(),
+        squares: ws.getSquares(),
+        insertedWords: ws.getInsertedWords(),
+    }
 
-  return level
+    return level
 }
 
 export default createWordSearchLevel

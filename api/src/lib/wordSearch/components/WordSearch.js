@@ -1,37 +1,37 @@
-import Board from './Board.js'
-import WordInserter from './WordInserter.js'
-import { loadLevelConfig } from '../helpers.js'
+import Board from "./Board.js"
+import WordInserter from "./WordInserter.js"
+import { loadLevelConfig } from "../helpers.js"
 
 class WordSearch {
-  constructor(levelNum) {
-    const config = loadLevelConfig(levelNum)
+    constructor(levelNum) {
+        const config = loadLevelConfig(levelNum)
 
-    this.board = new Board(config)
-    this.wordInserter = new WordInserter(this.board, config.numOfWords)
+        this.board = new Board(config)
+        this.wordInserter = new WordInserter(this.board, config.numOfWords)
 
-    this.insertWords()
-    this.fillEmptySquares()
-  }
+        this.insertWords()
+        this.fillEmptySquares()
+    }
 
-  insertWords() {
-    this.wordInserter.insertWords()
-  }
+    insertWords() {
+        this.wordInserter.insertWords()
+    }
 
-  fillEmptySquares() {
-    this.board.fillEmptySquares()
-  }
+    fillEmptySquares() {
+        this.board.fillEmptySquares()
+    }
 
-  getSize() {
-    return this.board.size
-  }
+    getSize() {
+        return this.board.size
+    }
 
-  getSquares() {
-    return this.board.squares
-  }
+    getSquares() {
+        return this.board.squares
+    }
 
-  getInsertedWords() {
-    return this.wordInserter.insertedWords.data
-  }
+    getInsertedWords() {
+        return this.wordInserter.insertedWords.data
+    }
 }
 
 export default WordSearch

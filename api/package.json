@@ -1,29 +1,30 @@
 {
-  "name": "crosswit-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "engines": {
-    "node": "16.x"
-  },
-  "scripts": {
-    "build": "babel src -d lib",
-    "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.20.0",
-    "express": "^4.18.1",
-    "mongoose": "^6.5.2",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
-    "@babel/preset-env": "^7.19.4"
-  }
+    "name": "crosswit-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "engines": {
+        "node": "16.x"
+    },
+    "scripts": {
+        "build": "babel src -d lib",
+        "dev": "nodemon ./src/index.js",
+        "start": "node ./src/index.js",
+        "format": "prettier -w \"src/**/*.js\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "express": "^4.18.1",
+        "mongoose": "^6.5.2",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.19.3",
+        "@babel/core": "^7.19.3",
+        "@babel/preset-env": "^7.19.4"
+    }
 }

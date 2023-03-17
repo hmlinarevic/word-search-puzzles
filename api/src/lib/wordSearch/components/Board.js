@@ -1,79 +1,79 @@
-import { getRandomNumber, getRandomLetter } from '../../../utils/index.js'
-import { makeColumns, makeNavigation, makeSquares } from '../helpers.js'
+import { getRandomNumber, getRandomLetter } from "../../../utils/index.js"
+import { makeColumns, makeNavigation, makeSquares } from "../helpers.js"
 
 class Board {
-  constructor({ size, numOfSquares, numOfWords }) {
-    this.size = size
-    this.numOfSquares = numOfSquares
-    this.numOfWords = numOfWords
+    constructor({ size, numOfSquares, numOfWords }) {
+        this.size = size
+        this.numOfSquares = numOfSquares
+        this.numOfWords = numOfWords
 
-    this.columns = makeColumns(this.size)
-    this.navigation = makeNavigation(this.size)
-    this.squares = makeSquares(this.numOfSquares)
-  }
-
-  getSquareCoordinate(index) {
-    index += 1 // offset for array 0 index access
-    const row = Math.ceil(index / this.size)
-    const column = this.columns[index - (row - 1) * this.size - 1]
-    return `${column}${row}`
-  }
-
-  getRowNum(squareIndex) {
-    squareIndex += 1
-
-    if (squareIndex <= 0 || squareIndex > this.numOfSquares) {
-      return
+        this.columns = makeColumns(this.size)
+        this.navigation = makeNavigation(this.size)
+        this.squares = makeSquares(this.numOfSquares)
     }
 
-    return Math.ceil(squareIndex / this.size)
-  }
+    getSquareCoordinate(index) {
+        index += 1 // offset for array 0 index access
+        const row = Math.ceil(index / this.size)
+        const column = this.columns[index - (row - 1) * this.size - 1]
+        return `${column}${row}`
+    }
 
-  getSquares() {
-    return this.squares
-  }
+    getRowNum(squareIndex) {
+        squareIndex += 1
 
-  getStartSquare() {
-    return this.squares[this.getRandomSquare()]
-  }
+        if (squareIndex <= 0 || squareIndex > this.numOfSquares) {
+            return
+        }
 
-  getRandomSquare() {
-    return getRandomNumber(0, this.numOfSquares)
-  }
+        return Math.ceil(squareIndex / this.size)
+    }
 
-  getRandomSquareIndex() {
-    return getRandomNumber(0, this.numOfSquares)
-  }
+    getSquares() {
+        return this.squares
+    }
 
-  getRandomSquareValue() {
-    return this.squares[this.getRandomSquare()]
-  }
+    getStartSquare() {
+        return this.squares[this.getRandomSquare()]
+    }
 
-  getSquareValue(index) {
-    return this.squares[index]
-  }
+    getRandomSquare() {
+        return getRandomNumber(0, this.numOfSquares)
+    }
 
-  readSquare(index) {
-    return this.squares[index]
-  }
+    getRandomSquareIndex() {
+        return getRandomNumber(0, this.numOfSquares)
+    }
 
-  read(squareIndex) {
-    return this.squares[squareIndex]
-  }
+    getRandomSquareValue() {
+        return this.squares[this.getRandomSquare()]
+    }
 
-  place(word, direction) {
-    word.split('').forEach((letter, i) => {
-      this.squares[direction[i]] = letter
-    })
-  }
+    getSquareValue(index) {
+        return this.squares[index]
+    }
 
-  fillEmptySquares() {
-    this.squares.forEach((square, i) => {
-      if (square === null) {
-        this.squares[i] = getRandomLetter('lowercase')
-      }
-    })
-  }
+    readSquare(index) {
+        return this.squares[index]
+    }
+
+    read(squareIndex) {
+        return this.squares[squareIndex]
+    }
+
+    place(word, direction) {
+        word.split("").forEach((letter, i) => {
+            this.squares[direction[i]] = letter
+        })
+    }
+
+    fillEmptySquares() {
+        this.squares.forEach((square, i) => {
+            if (square === null) {
+                this.squares[i] = getRandomLetter("lowercase")
+            }
+        })
+    }
 }
 
 export default Board

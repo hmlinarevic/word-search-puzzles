@@ -1,61 +1,61 @@
-import RandomWords from '../../randomWords/index.js'
-import Placement from './Placement.js'
-import InsertWord from './InsertWord.js'
+import RandomWords from "../../randomWords/index.js"
+import Placement from "./Placement.js"
+import InsertWord from "./InsertWord.js"
 
 class WordInserter {
-  constructor(board, numOfWordsToInsert) {
-    this.board = board
-    this.numOfWordsToInsert = numOfWordsToInsert
+    constructor(board, numOfWordsToInsert) {
+        this.board = board
+        this.numOfWordsToInsert = numOfWordsToInsert
 
-    this.insertedWords = {
-      count: 0,
-      data: [],
+        this.insertedWords = {
+            count: 0,
+            data: [],
+        }
     }
-  }
 
-  insertWords() {
-    while (this.insertedWords.count < this.numOfWordsToInsert) {
-      this.#attemptInsert()
+    insertWords() {
+        while (this.insertedWords.count < this.numOfWordsToInsert) {
+            this.#attemptInsert()
+        }
     }
-  }
 
-  #attemptInsert() {
-    const startSquareIndex = this.board.getRandomSquareIndex()
-    const startSquareValue = this.board.read(startSquareIndex)
+    #attemptInsert() {
+        const startSquareIndex = this.board.getRandomSquareIndex()
+        const startSquareValue = this.board.read(startSquareIndex)
 
-    if (startSquareValue === null) {
-      const placement = new Placement(startSquareIndex, this.board)
-      const insertWord = new InsertWord(
-        RandomWords.getWords(1, placement.maxSize)
-      )
+        if (startSquareValue === null) {
+            const placement = new Placement(startSquareIndex, this.board)
+            const insertWord = new InsertWord(
+                RandomWords.getWords(1, placement.maxSize)
+            )
 
-      placement.setRandomDirection(insertWord.word)
+            placement.setRandomDirection(insertWord.word)
 
-      const collisions = placement.getCollisionsData()
+            const collisions = placement.getCollisionsData()
 
-      if (collisions.length) {
-        insertWord.tryToModify(collisions)
-      }
+            if (collisions.length) {
+                insertWord.tryToModify(collisions)
+            }
 
-      if (collisions.length && !insertWord.modified) {
-        return this.#attemptInsert()
-      }
+            if (collisions.length && !insertWord.modified) {
+                return this.#attemptInsert()
+            }
 
-      const wordToInsert = insertWord.modified || insertWord.word
+            const wordToInsert = insertWord.modified || insertWord.word
 
-      this.board.place(wordToInsert, placement.randomDir)
+            this.board.place(wordToInsert, placement.randomDir)
 
-      this.#addToInsertedList({
-        word: wordToInsert,
-        indexes: placement.randomDir,
-      })
+            this.#addToInsertedList({
+                word: wordToInsert,
+                indexes: placement.randomDir,
+            })
+        }
     }
-  }
 
-  #addToInsertedList(data) {
-    this.insertedWords.count++
-    this.insertedWords.data.push(data)
-  }
+    #addToInsertedList(data) {
+        this.insertedWords.count++
+        this.insertedWords.data.push(data)
+    }
 }
 
 export default WordInserter
