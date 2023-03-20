@@ -1,5 +1,5 @@
-import createWordSearchLevel from "../../modules/wordSearch/index.js"
-import { TIME_ALLOCATION } from "../../modules/wordSearch/config.js"
+import createWordSearchLevel from "../../lib/wordSearch/index.js"
+import { TIME_ALLOCATION } from "../../lib/wordSearch/config.js"
 
 export const getWordSearchLevel = (req, res) => {
     const { level } = req.params

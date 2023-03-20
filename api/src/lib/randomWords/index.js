@@ -1,4 +1,5 @@
-import defaultWordsList from "./words-list.js"
+import defaultWordsList from "./words.js"
+
 import { getRandomNumber, selectRandomArrayElement } from "../../utils/index.js"
 
 export default class RandomWords {
