@@ -4,9 +4,6 @@
     "description": "",
     "main": "index.js",
     "type": "module",
-    "engines": {
-        "node": "16.x"
-    },
     "scripts": {
         "build": "babel src -d lib",
         "dev": "nodemon ./src/index.js",
