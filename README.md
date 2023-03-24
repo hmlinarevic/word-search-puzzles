@@ -1,17 +1,17 @@
 <img src="https://tatooine.services/images/crosswit-dark.png" alt="logo" />
 
-### About
+## About
 
-Backend api for crosswit.io puzzle game. Being a hybrid between a memory game and a word search puzzle, crosswit is designed around the idea of improving cognitive functioning.
+Backend API for [crosswit.io](https://crosswit.io) puzzle game. Being a hybrid between a memory game and a word search puzzle, crosswit is designed around the idea of improving cognitive functioning.
 
 Two aspects of the game, memorizing and searching for words, may improve your short term memory, focus and concentration. You can try it out [here](https://crosswit.io).
 
-### Features
+## Features
 
 -   generate word search puzzles
 -   10 levels with progressive difficulty
 
-### Technologies
+## Technologies
 
 -   Node.js
 -   Express
