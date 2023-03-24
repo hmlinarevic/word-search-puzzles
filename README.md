@@ -1,12 +1,4 @@
-<hr>
-
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet"> 
-<div style="display: flex; align-items: center; font-size: 42px; font-family: Titillium Web; justify-content: center; margin-bottom: -8px">
-<span>cr</span><img style="width: 48px; position: relative; top: 6px"src="https://tatooine.services/images/crosswit-logo.png"/><span>sswit</span>
-</div>
-<span style="font-family: Titillium Web; letter-spacing: 6px; font-size: .85rem; display: block; text-align: center;">API</span>
-
-<hr>
+<img src="https://tatooine.services/images/crosswit-dark.png" alt="logo" />
 
 ### About
 
