@@ -6,9 +6,8 @@ import wordsList from "./words.js"
 import { getRandomNumber, selectRandomArrayElement } from "../utils.js"
 
 /**
- * Class is responsibe for selecting random word from the provided list
- * of words. Also, class can create a new word from a partial word,
- * (e.g. ['', 'p', 'p', '', 'e'] --> ['a', 'p', 'p', 'l', 'e']).
+ * Class is responsibe for generating a single random word or a new word from
+ * a partial word (e.g. ['', 'p', 'p', '', 'e'] --> ['a', 'p', 'p', 'l', 'e']).
  * All methods are static and available on the class constructor.
  */
 
