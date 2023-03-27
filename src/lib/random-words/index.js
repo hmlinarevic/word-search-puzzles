@@ -1,66 +1,91 @@
-import defaultWordsList from "./words.js"
+/**
+ * Module dependencies.
+ */
 
-import { getRandomNumber, selectRandomArrayElement } from "../../utils/index.js"
+import wordsList from "./words.js"
+import { getRandomNumber, selectRandomArrayElement } from "../utils.js"
+
+/**
+ * Class is responsibe for selecting random word from the provided list
+ * of words. Also, class can create a new word from a partial word,
+ * (e.g. ['', 'p', 'p', '', 'e'] --> ['a', 'p', 'p', 'l', 'e']).
+ * All methods are static and available on the class constructor.
+ */
 
 export default class RandomWords {
     /**
-     * Get specified number of random words (or: and with specified start letter)
-     * @param {number} numOfWords - number of random words
-     * @param {string} [letter] - start letter of random word
-     * @return {array} array containing random words
+     * Get random words-list array member and return it
+     * @private
      */
-    static getWords(numOfWords, maxWordLength, letter = null) {
-        let activeWordsList = defaultWordsList
-        const isletterArgValid =
-            typeof letter === "string" && letter.length === 1
 
-        activeWordsList = defaultWordsList.filter((word) => {
-            if (letter && isletterArgValid) {
-                return word.charAt(0) === letter && word.length <= maxWordLength
-            } else {
-                return word.length <= maxWordLength
-            }
-        })
-
-        const indexHistory = []
-        const results = []
-
-        for (let i = 0; i < numOfWords && i < activeWordsList.length; i++) {
-            let index = getRandomNumber(0, activeWordsList.length - 1)
-
-            // prevent returning same word
-            if (indexHistory.includes(index)) {
-                i--
-                continue
-            } else {
-                indexHistory.push(index)
-                results.push(activeWordsList[index])
-            }
-        }
-
-        return results.length === 1 ? results[0] : results
+    static #extractRandomWordFromList() {
+        return wordsList[getRandomNumber(0, wordsList.length)]
     }
 
-    // TODO -> extract getting the word from getWords()
-    static getWord() {}
+    /**
+     * Validate maxWordLength argument provided on getWord() method.
+     * Constraints are: min = 3, max = 14. (i.e. smallest and biggest word in
+     * the provided words list file).
+     * @private
+     */
 
-    static getWordFromPartials(partials, wordTargetLength) {
-        // console.log({ partials })
+    static #validateMaxWordLengthArgument(length) {
+        if (length < 3 || length > 14) {
+            throw new Error(
+                "invalid constrains on getWord() method - check argument length"
+            )
+        }
+    }
 
-        const results = defaultWordsList.filter((word) => {
-            if (word.length === wordTargetLength) {
-                if (
-                    partials.every(
-                        (partial) => partial.letter === word[partial.index]
-                    )
-                ) {
+    /**
+     * Get one random word.
+     * @public
+     */
+
+    static getWord(maxWordLength) {
+        maxWordLength && this.#validateMaxWordLengthArgument(maxWordLength)
+
+        // word length is specified
+        if (maxWordLength) {
+            let word
+
+            do {
+                word = this.#extractRandomWordFromList()
+            } while (word.length > maxWordLength)
+
+            return word
+        }
+
+        // word length is not specified
+        return this.#extractRandomWordFromList()
+    }
+
+    /**
+     * Create a new word from a partial word (i.e. from string chars and their indexes),
+     * if the new word is found in the "wordsList".
+     * (e.g. ['', 'p', 'p', '', 'e'] --> ['a', 'p', 'p', 'l', 'e'])
+     * @public
+     */
+
+    static createWordFromPartialWord(partialWord, newWordLength) {
+        // (e.g partialWord = [{ char: "p", charIndex: 1 }])
+
+        const newWords = wordsList.filter((word) => {
+            if (word.length === newWordLength) {
+                //
+                // check if "newWord" has the same chars as partial
+                const hasWordSameLettersAndIndexes = partialWord.every(
+                    (partial) => {
+                        return partial.char === word[partial.charIndex]
+                    }
+                )
+
+                if (hasWordSameLettersAndIndexes) {
                     return word
                 }
             }
         })
 
-        // console.log({ results })
-
-        return results.length ? selectRandomArrayElement(results) : undefined
+        return newWords.length ? selectRandomArrayElement(newWords) : null
     }
 }

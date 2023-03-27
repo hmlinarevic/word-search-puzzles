@@ -1,3 +1,9 @@
+/**
+ * List of words.
+ * Min length = 3
+ * Max length = 14
+ */
+
 export default [
     "ability",
     "able",
