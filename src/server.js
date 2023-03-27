@@ -1,15 +1,23 @@
-import express from "express"
-import bp from "body-parser"
-import morgan from "morgan"
+/**
+ * Module dependencies.
+ */
 
+import express from "express"
+import morgan from "morgan"
+import cors from "cors"
 import * as config from "./config/index.js"
 import router from "./router.js"
 
+/**
+ * Server.
+ */
+
 const app = express()
 
-app.use(bp.urlencoded({ extended: true }))
-app.use(bp.json())
+app.use(cors())
 app.use(morgan("dev"))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use("/api", router)
 
