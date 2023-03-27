@@ -3,8 +3,7 @@ import bp from "body-parser"
 import morgan from "morgan"
 
 import * as config from "./config/index.js"
-
-import puzzleRouter from "./resources/puzzle/puzzle.router.js"
+import router from "./router.js"
 
 const app = express()
 
@@ -12,7 +11,7 @@ app.use(bp.urlencoded({ extended: true }))
 app.use(bp.json())
 app.use(morgan("dev"))
 
-app.use("/api/puzzle", puzzleRouter)
+app.use("/api", router)
 
 app.get("/", (req, res) => {
     res.json({ message: "hello there" })
