@@ -1,5 +1,14 @@
-import { getRandomNumber, getRandomLetter } from "../../../utils/index.js"
-import { makeColumns, makeNavigation, makeSquares } from "../helpers.js"
+/**
+ * Module dependencies.
+ */
+
+import { DIRECTIONS } from "./config.js"
+import { getRandomNumber, getRandomLetter } from "../../utils/index.js"
+
+/**
+ * Class provides different board components like squares, columns, and
+ * navigation to place words.
+ */
 
 class Board {
     constructor({ size, numOfSquares, numOfWords }) {
@@ -7,16 +16,60 @@ class Board {
         this.numOfSquares = numOfSquares
         this.numOfWords = numOfWords
 
-        this.columns = makeColumns(this.size)
-        this.navigation = makeNavigation(this.size)
-        this.squares = makeSquares(this.numOfSquares)
+        this.navigation = this.#makeNavigation(this.size)
+        this.squares = this.#makeSquares(this.numOfSquares)
     }
 
-    getSquareCoordinate(index) {
-        index += 1 // offset for array 0 index access
-        const row = Math.ceil(index / this.size)
-        const column = this.columns[index - (row - 1) * this.size - 1]
-        return `${column}${row}`
+    #makeNavigation(levelSize) {
+        return DIRECTIONS.reduce((obj, dir) => {
+            switch (dir) {
+                case "N":
+                    obj[dir] = -levelSize
+                    break
+                case "S":
+                    obj[dir] = +levelSize
+                    break
+                case "W":
+                    obj[dir] = -1
+                    break
+                case "E":
+                    obj[dir] = +1
+                    break
+                case "NW":
+                    obj[dir] = -(levelSize + 1)
+                    break
+                case "NE":
+                    obj[dir] = -(levelSize - 1)
+                    break
+                case "SW":
+                    obj[dir] = +(levelSize - 1)
+                    break
+                case "SE":
+                    obj[dir] = +(levelSize + 1)
+                    break
+                default:
+                    throw new Error("error while creating navigation")
+            }
+            return obj
+        }, {})
+    }
+
+    #makeSquares(numOfSquares) {
+        return new Array(numOfSquares).fill(null)
+    }
+
+    fillEmptySquares() {
+        this.squares.forEach((square, i) => {
+            if (square === null) {
+                this.squares[i] = getRandomLetter("lowercase")
+            }
+        })
+    }
+
+    place(word, direction) {
+        word.split("").forEach((letter, i) => {
+            this.squares[direction[i]] = letter
+        })
     }
 
     getRowNum(squareIndex) {
@@ -29,51 +82,17 @@ class Board {
         return Math.ceil(squareIndex / this.size)
     }
 
-    getSquares() {
-        return this.squares
-    }
-
-    getStartSquare() {
-        return this.squares[this.getRandomSquare()]
-    }
-
-    getRandomSquare() {
-        return getRandomNumber(0, this.numOfSquares)
-    }
-
     getRandomSquareIndex() {
         return getRandomNumber(0, this.numOfSquares)
-    }
-
-    getRandomSquareValue() {
-        return this.squares[this.getRandomSquare()]
-    }
-
-    getSquareValue(index) {
-        return this.squares[index]
     }
 
     readSquare(index) {
         return this.squares[index]
     }
-
-    read(squareIndex) {
-        return this.squares[squareIndex]
-    }
-
-    place(word, direction) {
-        word.split("").forEach((letter, i) => {
-            this.squares[direction[i]] = letter
-        })
-    }
-
-    fillEmptySquares() {
-        this.squares.forEach((square, i) => {
-            if (square === null) {
-                this.squares[i] = getRandomLetter("lowercase")
-            }
-        })
-    }
 }
+
+/**
+ * Export.
+ */
 
 export default Board
