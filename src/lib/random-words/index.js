@@ -3,7 +3,7 @@
  */
 
 import wordsList from "./words.js"
-import { getRandomNumber, selectRandomArrayElement } from "../utils.js"
+import { getRandomNumber, selectRandomArrayElement } from "../../utils/index.js"
 
 /**
  * Class is responsibe for generating a single random word or a new word from
