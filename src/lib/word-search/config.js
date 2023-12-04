@@ -14,6 +14,27 @@ export const LEVELS = Object.freeze({
     10: { size: 14, numOfSquares: 156, numOfWords: 10, maxWordLength: 14 },
 })
 
+export const TIME_ALLOCATION = Object.freeze({
+    // time allocation per game phase in seconds
+
+    // memorize phase (when user memorizes words)
+    // game phase (when user looks for words in the crossword)
+
+    1: { memorize: 1, game: 30 },
+    2: { memorize: 4, game: 40 },
+    3: { memorize: 5, game: 50 },
+
+    4: { memorize: 10, game: 60 },
+    5: { memorize: 15, game: 80 },
+    6: { memorize: 20, game: 100 },
+
+    7: { memorize: 30, game: 130 },
+    8: { memorize: 40, game: 150 },
+    9: { memorize: 50, game: 170 },
+
+    10: { memorize: 60, game: 200 },
+})
+
 export const DIRECTIONS = Object.freeze([
     "N",
     "NE",
