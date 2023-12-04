@@ -1,4 +1,4 @@
-import WordSearch from "./components/WordSearch.js"
+import WordSearch from "./WordSearch.js"
 
 const createWordSearchLevel = (levelNum) => {
     const ws = new WordSearch(levelNum)

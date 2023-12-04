@@ -1,5 +1,5 @@
-import { DIRECTIONS } from "../config.js"
-import { selectRandomArrayElement } from "../../../utils/index.js"
+import { DIRECTIONS } from "./config.js"
+import { selectRandomArrayElement } from "../../utils/index.js"
 
 class Placement {
     constructor(startSquareIndex, board) {

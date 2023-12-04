@@ -1,4 +1,4 @@
-import RandomWords from "../../randomWords/index.js"
+import RandomWords from "../random-words/index.js"
 
 class InsertWord {
     constructor(word) {
@@ -15,8 +15,6 @@ class InsertWord {
      */
     // TODO --> add collisions paramater
     tryToModify(collisions) {
-        const { getWordFromPartials } = RandomWords
-
         const partials = collisions.map((collision) => {
             return {
                 letter: collision.squareValue,
@@ -24,7 +22,7 @@ class InsertWord {
             }
         })
 
-        this.#setModified(getWordFromPartials(partials, this.word.length))
+        this.#setModified(RandomWords.createWordFromPartialWord(partials, this.word.length))
     }
 
     #setModified(val) {

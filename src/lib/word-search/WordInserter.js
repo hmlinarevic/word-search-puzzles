@@ -1,4 +1,4 @@
-import RandomWords from "../../randomWords/index.js"
+import RandomWords from "../random-words/index.js"
 import Placement from "./Placement.js"
 import InsertWord from "./InsertWord.js"
 
@@ -21,12 +21,12 @@ class WordInserter {
 
     #attemptInsert() {
         const startSquareIndex = this.board.getRandomSquareIndex()
-        const startSquareValue = this.board.read(startSquareIndex)
+        const startSquareValue = this.board.readSquare(startSquareIndex)
 
         if (startSquareValue === null) {
             const placement = new Placement(startSquareIndex, this.board)
             const insertWord = new InsertWord(
-                RandomWords.getWords(1, placement.maxSize)
+                RandomWords.getWord(placement.maxSize)
             )
 
             placement.setRandomDirection(insertWord.word)

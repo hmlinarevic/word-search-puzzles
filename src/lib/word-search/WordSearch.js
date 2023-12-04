@@ -1,6 +1,6 @@
 import Board from "./Board.js"
 import WordInserter from "./WordInserter.js"
-import { loadLevelConfig } from "../helpers.js"
+import { loadLevelConfig } from "./config.js"
 
 class WordSearch {
     constructor(levelNum) {
